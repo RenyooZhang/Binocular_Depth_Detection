@@ -1,31 +1,21 @@
-#include <opencv2/opencv.hpp>
-
-#include <opencv2/core/core.hpp>
-
-#include <opencv2/highgui/highgui.hpp>
-
-#include <opencv2/imgproc.hpp>
-
-#include<iostream>
+#include <opencv2\opencv.hpp>
+#include <string>
+#include <iostream>
+#include "calibration.h"
+#include "undistort.h"
 
 using namespace std;
-
 using namespace cv;
 
 int main()
-
 {
+    string patternImgPath = "data/pattern/";
+    string calibResultPath = "data/results/";
+    string srcImgPath = "data/srcImg/1.jpg";
+    Size boardSize = Size(9, 6);
+    CCalibration calibration(patternImgPath, calibResultPath, boardSize);
+    calibration.run();
 
-	Mat image = Mat::zeros(300, 600, CV_8UC3);
-
-	circle(image, Point(300, 200), 100, Scalar(25, 110, 288), -100);
-
-	circle(image, Point(400, 200), 100, Scalar(255, 123, 127), -100);
-
-	imshow("Show Window", image);
-
-	waitKey(0);
-
-	return 0;
-
+    CUndistort undistort(srcImgPath, calibResultPath);
+    undistort.run();
 }
