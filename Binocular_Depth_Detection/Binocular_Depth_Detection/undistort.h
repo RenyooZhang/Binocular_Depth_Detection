@@ -31,7 +31,7 @@ private:
 
 public:
     bool readParams();
-    bool undistProcess();
-    void run();
+    Mat& undistProcess(Mat& Corrected_image);
+    void run(Mat& Corrected_image);
 
 };
